@@ -1,0 +1,13 @@
+#di gunakan untuk membuka url
+
+import subprocess
+
+subprocess.call('start chrome --profile-directory="Profile 1" "x.com" "google.com" "google.com"', shell=True)
+
+
+
+#contoh url jadi
+https://x.com/intent/post?in_reply_to=1815187468691316946&text=api_hash+phone_number+telegram_username+commenttag3
+https://twitter.com/intent/tweet?url=https://x.com/elonmusk/status/1815187468691316946&text=api_hash%20phone_number%20telegram_username%20twitter_username%20kontol%20quotetag5
+
+
