@@ -14,7 +14,6 @@ a = input('no durov 1 ==> ')
 b = input('no durov 2 ==> ')
 c = input('no durov 3 ==> ')
 d = input('no durov 4 ==> ')
-bearer = input("masukkan bearer ==>> ")
 
 
 def hold_coin(bearer):
@@ -58,11 +57,13 @@ def hold_coin(bearer):
     }
     session = requests.Session()
     sesi_get = session.get(url, headers=headers)
-    print(sesi_get.text)
-
-    time.sleep(60)
-    sesi_post = session.post(url, headers=headers_claim, json=payload)
-    print(sesi_post.text)
+    if 'blocked_until' in sesi_get.text:
+        pass
+    else :
+        print('holding.....')
+        time.sleep(60)
+        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        print(sesi_post.text)
 
 
 def swipe_coin(bearer):
@@ -105,11 +106,13 @@ def swipe_coin(bearer):
     }
     session = requests.Session()
     sesi_get = session.get(url, headers=headers)
-    print(sesi_get.text)
-
-    time.sleep(60)
-    sesi_post = session.post(url, headers=headers_claim, json=payload)
-    print(sesi_post.text)
+    if 'blocked_until' in sesi_get.text:
+        pass
+    else:
+        print('swipe coin.....')
+        time.sleep(60)
+        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        print(sesi_post.text)
 
 def durov(bearer):
     url = "https://major.bot/api/durov/"
@@ -155,11 +158,13 @@ def durov(bearer):
     }
     session = requests.Session()
     sesi_get = session.get(url, headers=headers)
-    print(sesi_get.text)
-
-    time.sleep(60)
-    sesi_post = session.post(url, headers=headers_claim, json=payload)
-    print(sesi_post.text)
+    if 'blocked_until' in sesi_get.text:
+        pass
+    else:
+        print('mengdurov.....')
+        time.sleep(0)
+        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        print(sesi_post.text)
 
 
 def roulette(bearer):
@@ -182,14 +187,12 @@ def roulette(bearer):
 
     session = requests.Session()
     sesi_get = session.get(url, headers=headers)
-    print(sesi_get.text)
-
-    time.sleep(3)
-    sesi_post = session.post(url, headers=header)
-    print(sesi_post.text)
-
-
-
+    if 'blocked_until' in sesi_get.text:
+        pass
+    else:
+        print('mengocok rolet.....')
+        sesi_post = session.post(url, headers=headers, json=payload)
+        print(sesi_post.text)
 
 
 
@@ -206,7 +209,10 @@ def roulette(bearer):
 
 
 
-query_file = open('data','r+')
+
+
+
+query_file = open('data.txt','r+').read()
 querys = query_file.split('\n')
 for query in querys :
     url = "https://major.bot/api/auth/tg/"
@@ -240,3 +246,48 @@ for query in querys :
     swipe_coin(bearer_key)
     durov(bearer_key)
     roulette(bearer_key)
+
+
+
+
+    get_task_false_url = "https://major.bot/api/tasks/?is_daily=false"
+    get_task_true_url = "https://major.bot/api/tasks/?is_daily=true"
+    task_headers = {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Authorization": bearer_key,
+        "Priority": "u=1, i",
+        "Sec-Ch-Ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": "\"Windows\"",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+    task_true = requests.get(get_task_true_url, headers=task_headers).json()
+    task_false = requests.get(get_task_false_url, headers=task_headers).json()
+    for data in task_true:
+        task_id = data['id']
+        print(task_id)
+        url_submit_task = 'https://major.bot/api/tasks/'
+        payload_task = {
+            'task_id' : task_id
+        }
+        time.sleep(3)
+        response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+
+        print(response_task)
+
+    for data in task_false:
+        task_id = data['id']
+        print(task_id)
+        url_submit_task = 'https://major.bot/api/tasks/'
+        payload_task = {
+            'task_id' : task_id
+        }
+        time.sleep(1)
+        response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+
+        print(response_task)
