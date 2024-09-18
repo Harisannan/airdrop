@@ -14,10 +14,10 @@ import time
 
 answer_task = input('nugas mas? [y/n] ==>> ')
 
-a = input('no durov 1 ==> ')
-b = input('no durov 2 ==> ')
-c = input('no durov 3 ==> ')
-d = input('no durov 4 ==> ')
+a = 8
+b = 3
+c = 7
+d = 4
 
 
 
@@ -40,9 +40,9 @@ def daily(bearer):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     }
 
-    session = requests.Session()
-    sesi_get = session.get(url, headers=headers)
-    sesi_get2 = session.post(url2, headers=headers).json()
+
+    sesi_get = requests.get(url, headers=headers)
+    sesi_get2 = requests.post(url2, headers=headers).json()
     if sesi_get2['is_increased'] == True:
         print("Daily claim done")
 
@@ -87,14 +87,14 @@ def hold_coin(bearer):
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     }
-    session = requests.Session()
-    sesi_get = session.get(url, headers=headers)
+
+    sesi_get = requests.get(url, headers=headers)
     if 'blocked_until' in sesi_get.text:
         pass
     else :
         print('holding.....')
         time.sleep(60)
-        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        sesi_post = requests.post(url, headers=headers_claim, json=payload)
         print(sesi_post.text)
 
 
@@ -136,14 +136,14 @@ def swipe_coin(bearer):
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     }
-    session = requests.Session()
-    sesi_get = session.get(url, headers=headers)
+
+    sesi_get = requests.get(url, headers=headers)
     if 'blocked_until' in sesi_get.text:
         pass
     else:
         print('swipe coin.....')
         time.sleep(60)
-        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        sesi_post = requests.post(url, headers=headers_claim, json=payload)
         print(sesi_post.text)
 
 def durov(bearer):
@@ -188,14 +188,14 @@ def durov(bearer):
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     }
-    session = requests.Session()
-    sesi_get = session.get(url, headers=headers)
+
+    sesi_get = requests.get(url, headers=headers)
     if 'blocked_until' in sesi_get.text:
         pass
     else:
         print('mengdurov.....')
         time.sleep(0)
-        sesi_post = session.post(url, headers=headers_claim, json=payload)
+        sesi_post = requests.post(url, headers=headers_claim, json=payload)
         print(sesi_post.text)
 
 
@@ -217,13 +217,13 @@ def roulette(bearer):
         "Sec-Fetch-Site": "same-origin",
     }
 
-    session = requests.Session()
-    sesi_get = session.get(url, headers=headers)
+
+    sesi_get = requests.get(url, headers=headers)
     if 'blocked_until' in sesi_get.text:
         pass
     else:
         print('mengocok rolet.....')
-        sesi_post = session.post(url, headers=headers, json=payload)
+        sesi_post = requests.post(url, headers=headers, json=payload)
         print(sesi_post.text)
 
 
