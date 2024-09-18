@@ -10,10 +10,42 @@ import requests
 import requests
 import random
 import time
+
+
+answer_task = input('nugas mas? [y/n] ==>> ')
+
 a = input('no durov 1 ==> ')
 b = input('no durov 2 ==> ')
 c = input('no durov 3 ==> ')
 d = input('no durov 4 ==> ')
+
+
+
+def daily(bearer):
+    url = "https://major.bot/api/user-visits/streak/"
+    url2 = "https://major.bot/api/user-visits/visit/"
+
+    headers = {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Authorization": bearer,
+        "Priority": "u=1, i",
+        "Sec-Ch-Ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": "\"Windows\"",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+
+    session = requests.Session()
+    sesi_get = session.get(url, headers=headers)
+    sesi_get2 = session.post(url2, headers=headers).json()
+    if sesi_get2['is_increased'] == True:
+        print("Daily claim done")
+
 
 
 def hold_coin(bearer):
@@ -239,9 +271,9 @@ for query in querys :
     response = requests.post(url, headers=headers, json=payload).json()
 
     bearer_key = f'Bearer {response['access_token']}'
-
     print(bearer_key)
 
+    daily(bearer_key)
     hold_coin(bearer_key)
     swipe_coin(bearer_key)
     durov(bearer_key)
@@ -268,26 +300,46 @@ for query in querys :
     }
     task_true = requests.get(get_task_true_url, headers=task_headers).json()
     task_false = requests.get(get_task_false_url, headers=task_headers).json()
-    for data in task_true:
-        task_id = data['id']
-        print(task_id)
-        url_submit_task = 'https://major.bot/api/tasks/'
-        payload_task = {
-            'task_id' : task_id
-        }
-        time.sleep(3)
-        response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+    if answer_task == 'y':
+        for data in task_true:
+            task_id = data['id']
+            url_submit_task = 'https://major.bot/api/tasks/'
+            payload_task = {
+                'task_id' : task_id
+            }
+            time.sleep(1)
+            response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+            try :
+                print(f"mengerjakan tugas dengan id ==>> {response_task['task_id']}")
+                if response_task['is_completed'] == True:
+                    print("status : tugas berhasil di kerjakan")
+                else:
+                    print("status : tugas tidak dapat di handle")
+            except KeyError:
+                print(f"status tugas : {response_task['detail']}")
+        for data in task_false:
+            task_id = data['id']
+            url_submit_task = 'https://major.bot/api/tasks/'
+            payload_task = {
+                'task_id' : task_id
+            }
+            time.sleep(1)
+            response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+            try:
+                print(f"mengerjakan tugas dengan id ==>> {response_task['task_id']}")
+                if response_task['is_completed'] == True:
+                    print("status : tugas berhasil di kerjakan")
+                else:
+                    print("status : tugas tidak dapat di handle")
+            except KeyError :
+                print(f"status tugas : {response_task['detail']}")
 
-        print(response_task)
 
-    for data in task_false:
-        task_id = data['id']
-        print(task_id)
-        url_submit_task = 'https://major.bot/api/tasks/'
-        payload_task = {
-            'task_id' : task_id
-        }
-        time.sleep(1)
-        response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
-
-        print(response_task)
+    url_submit_task = 'https://major.bot/api/tasks/'
+    payload_task = {
+        "task_id": 92,
+        "payload": {"code": "070624"}
+    }
+    time.sleep(1)
+    response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
+    print(response_task)
