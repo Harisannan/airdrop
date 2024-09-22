@@ -18,7 +18,6 @@ def cek_type_diamond(headers):
     }
     respons2 = requests.post(url2, headers=headers, json=payload)
 
-
 def check_in_daily(headers):
     url = "https://fintopio-tg.fintopio.com/api/daily-checkins"
     response = requests.get(url, headers=headers).json()
