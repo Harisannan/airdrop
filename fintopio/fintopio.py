@@ -76,6 +76,7 @@ for query in querys :
 
     bearer_code = "Bearer "+response['token']
 
+
     print(bearer_code)
 
     headers = {
