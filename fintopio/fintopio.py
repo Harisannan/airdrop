@@ -26,6 +26,8 @@ def check_in_daily(headers):
 
 
 def task(headers):
+    farming_claim_url = "https://fintopio-tg.fintopio.com/api/farming/claim"
+    requests.post(farming_claim_url, headers=headers).json()
     url = "https://fintopio-tg.fintopio.com/api/farming/farm"
     response = requests.post(url, headers=headers).json()
     print(response)
