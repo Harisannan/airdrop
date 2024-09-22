@@ -25,7 +25,6 @@ def check_in_daily(headers):
 
 
 
-
 def task(headers):
     url = "https://fintopio-tg.fintopio.com/api/farming/farm"
     response = requests.post(url, headers=headers).json()
