@@ -30,8 +30,19 @@ def check_in_daily(headers):
 def task(headers):
     url = "https://fintopio-tg.fintopio.com/api/farming/farm"
     response = requests.post(url, headers=headers).json()
-    return response
-
+    print(response)
+    #lihat tugas dan klaim
+    url_task = 'https://fintopio-tg.fintopio.com/api/hold/tasks'
+    task_response = requests.get(url_task, headers=headers).json()
+    print(task_response)
+    task_ids = task_response['tasks']
+    for ids in task_ids :
+        task_url = f"https://fintopio-tg.fintopio.com/api/hold/tasks/{ids['id']}/start"
+        print('mengerjakan tugas...')
+        response_task = requests.post(task_url, headers=headers)
+        print('melakukan klaim hasil tugas')
+        claim_url = f"https://fintopio-tg.fintopio.com/api/hold/tasks/{ids['id']}/claim"
+        claim_response = requests.post(claim_url, headers=headers).json()
 
 
 
