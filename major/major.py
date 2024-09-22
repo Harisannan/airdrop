@@ -14,10 +14,10 @@ import time
 
 answer_task = input('nugas mas? [y/n] ==>> ')
 
-a = 8
-b = 3
-c = 7
-d = 4
+a = 11
+b = 4
+c = 12
+d = 2
 
 
 
