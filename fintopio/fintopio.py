@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-
+import time
 
 def cek_type_diamond(headers):
     url = "https://fintopio-tg.fintopio.com/api/hold/fast/init"
@@ -18,6 +18,7 @@ def cek_type_diamond(headers):
     }
     respons2 = requests.post(url2, headers=headers, json=payload)
 
+    return next_time_diamond
 def check_in_daily(headers):
     url = "https://fintopio-tg.fintopio.com/api/daily-checkins"
     response = requests.get(url, headers=headers).json()
@@ -48,54 +49,70 @@ def task(headers):
 
 
 n = 0
+target_time = 0
 query_file = open('data.txt','r+').read()
 querys = query_file.split('\n')
-for query in querys :
-    os.system('clear')
-    os.system('cls')
-    print(f'akun ke - {n+1}')
-    main_headers = {
-        "accept": "application/json, text/plain, */*",
-        "accept-encoding": "gzip, deflate, br, zstd",
-        "accept-language": "en-US,en;q=0.9",
-        "priority": "u=1, i",  # Note the space between comma and "i"
-        "referer": "https://fintopio-tg.fintopio.com/",
-        "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-origin",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "webapp": "true"
-    }
+while True
+    for query in querys :
+        while True :
+            try :
+                os.system('clear')
+                print(f'akun ke - {n+1}')
+                main_headers = {
+                    "accept": "application/json, text/plain, */*",
+                    "accept-encoding": "gzip, deflate, br, zstd",
+                    "accept-language": "en-US,en;q=0.9",
+                    "priority": "u=1, i",  # Note the space between comma and "i"
+                    "referer": "https://fintopio-tg.fintopio.com/",
+                    "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": '"Windows"',
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                    "webapp": "true"
+                }
 
-    url = f'https://fintopio-tg.fintopio.com/api/auth/telegram?{query}'
+                url = f'https://fintopio-tg.fintopio.com/api/auth/telegram?{query}'
 
-    response = requests.get(url,headers=main_headers).json()
+                response = requests.get(url,headers=main_headers).json()
 
-    bearer_code = "Bearer "+response['token']
+                bearer_code = "Bearer "+response['token']
 
 
-    print(bearer_code)
+                print(bearer_code)
 
-    headers = {
-        "accept": "application/json, text/plain, */*",
-        "accept-encoding": "gzip, deflate, br, zstd",
-        "accept-language": "en-US,en;q=0.9",
-        "authorization": bearer_code,
-        "priority": "u=1, i",  # Note the space between comma and "i"
-        "referer": "https://fintopio-tg.fintopio.com/",
-        "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-origin",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "webapp": "true"
-    }
-    cek_type_diamond(headers)
-    check_in_daily(headers)
-    task(headers)
-    n = n+1
+                headers = {
+                    "accept": "application/json, text/plain, */*",
+                    "accept-encoding": "gzip, deflate, br, zstd",
+                    "accept-language": "en-US,en;q=0.9",
+                    "authorization": bearer_code,
+                    "priority": "u=1, i",  # Note the space between comma and "i"
+                    "referer": "https://fintopio-tg.fintopio.com/",
+                    "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": '"Windows"',
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                    "webapp": "true"
+                }
+                target_time = cek_type_diamond(headers)
+                check_in_daily(headers)
+                task(headers)
+                n = n+1
+                if n%15 == 0:
+                    time.sleep(15)
+                break
+            except:
+                print("menjalankan ulang............")
+                time.sleep(10)
+
+    time_now = time.time()
+    delta_time = target_time/1000 - time_now
+    print(f"menunggu hingga {delta_time/60} menit")
+    time.sleep(delta_time)
+    n = 0
+    target_time = 0
