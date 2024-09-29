@@ -332,16 +332,17 @@ while True:
 
                     url_submit_task = 'https://major.bot/api/tasks/'
                     payload_task = {
-                        "task_id": 102,
-                        "payload": {"code": "159390"}
+                        "task_id": 111,
+                        "payload": {"code": "241086"}
                     }
                     time.sleep(1)
                     response_task = requests.post(url_submit_task, headers=task_headers, json=payload_task).json()
                     print(response_task)
+
                     n = n+1
                     countdown(random.randint(1,11))
                     break
-            except:
+            except :
                 print("mengulang kembali....")
                 time.sleep(2)
     n = 0
