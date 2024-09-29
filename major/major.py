@@ -9,10 +9,10 @@ import socket
 
 answer_task = input('nugas mas? [y/n] ==>> ')
 durov_quests = input('pakai durov? ==>> ')
-a = 1
-b = 3
-c = 2
-d = 1
+a = 4
+b = 7
+c = 9
+d = 3
 
 def countdown(t):
     while t:
@@ -98,7 +98,7 @@ def hold_coin(bearer):
     else:
         time_next = time.time() + 28800
         print('holding.....')
-        time.sleep(1)
+        time.sleep(0)
         sesi_post = session.post(url, headers=headers_claim, json=payload)
         print(sesi_post.text)
     return time_next
