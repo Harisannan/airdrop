@@ -1,0 +1,4 @@
+-login ke blum
+-inspect element
+-salin bearer
+-paste
