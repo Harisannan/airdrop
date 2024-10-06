@@ -224,6 +224,7 @@ def tap_tap():
             answer_url = f"{original_url}/validate"
             payload_answer = {
                 "keyword": "WOWBLUM"
+
             }
             answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
 
