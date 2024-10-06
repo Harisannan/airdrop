@@ -192,6 +192,45 @@ def tap_tap():
 
             requests.post(claim_url, headers=headers_tasks)
 
+
+
+            original_url = 'https://earn-domain.blum.codes/api/v1/tasks/d2715289-b487-43bc-bc21-18224f8f6bc3'
+            start_url = f"{original_url}/start"
+            requests.post(start_url, headers=headers_tasks)
+            answer_url = f"{original_url}/validate"
+            payload_answer = {
+                "keyword": "NODOXXING"
+            }
+            answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
+
+            claim_url = f"{original_url}/claim"
+
+            requests.post(claim_url, headers=headers_tasks)
+
+            original_url = 'https://earn-domain.blum.codes/api/v1/tasks/1572a605-d714-4f2c-8045-9c5f874d9c7e'
+            start_url = f"{original_url}/start"
+            requests.post(start_url, headers=headers_tasks)
+            answer_url = f"{original_url}/validate"
+            payload_answer = {
+                "keyword": "memeblum"
+            }
+            answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
+
+            claim_url = f"{original_url}/claim"
+
+            original_url = 'https://earn-domain.blum.codes/api/v1/tasks/7067a3db-d9c5-4268-ac19-c393743e8491'
+            start_url = f"{original_url}/start"
+            requests.post(start_url, headers=headers_tasks)
+            answer_url = f"{original_url}/validate"
+            payload_answer = {
+                "keyword": "WOWBLUM"
+            }
+            answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
+
+            claim_url = f"{original_url}/claim"
+
+            requests.post(claim_url, headers=headers_tasks)
+
         # Make the request to play the game
         response_play_game = requests.post(play_game_url, headers=headers_play_game)
 
