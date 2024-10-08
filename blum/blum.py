@@ -232,6 +232,20 @@ def tap_tap():
 
             requests.post(claim_url, headers=headers_tasks)
 
+            original_url = 'https://earn-domain.blum.codes/api/v1/tasks/30d9f351-614e-4565-a1bb-e7e94fc3dc3c'
+            start_url = f"{original_url}/start"
+            requests.post(start_url, headers=headers_tasks)
+            answer_url = f"{original_url}/validate"
+            payload_answer = {
+                "keyword": "ONFIRE"
+
+            }
+            answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
+
+            claim_url = f"{original_url}/claim"
+
+            requests.post(claim_url, headers=headers_tasks)
+
         # Make the request to play the game
         response_play_game = requests.post(play_game_url, headers=headers_play_game)
 
