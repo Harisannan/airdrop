@@ -71,55 +71,6 @@ def tap_tap():
 
 
 
-
-
-            #respon kanggo nggoleki task
-            response_tasks = requests.get('https://earn-domain.blum.codes/api/v1/tasks', headers=headers_tasks).json()
-
-            print(f"tasks response : {response_tasks}")
-            for i in response_tasks:
-                data_task = i['tasks']
-                for a in data_task:
-                    if 'NOT_STARTED' in a['status']:
-                        print(f"id : {a['id']}")
-                        print(f"Iconfilekey : {a['iconFileKey']}")
-                        url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{a['id']}/start"
-                        response_start = requests.post(url_start_task, headers=headers_tasks)
-                        url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{a['id']}/claim"
-                        response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
-                    else:
-                        pass
-                    try :
-                        for b in a['subTasks']:
-                            if 'NOT_STARTED' in b['status']:
-                                time.sleep(1)
-                                print(f"id : {b['id']}")
-                                print(f"Iconfilekey : {b['iconFileKey']}")
-                                url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{b['id']}/start"
-                                response_start = requests.post(url_start_task, headers=headers_tasks)
-                                url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{b['id']}/claim"
-                                response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
-                            else:
-                                pass
-                    except KeyError:
-                        continue
-                data_sub_tasks = i['subSections']
-                for abc in data_sub_tasks :
-                    try :
-                        taskssub = abc['tasks']
-                        for cbd in taskssub:
-                            if 'NOT_STARTED' in cbd['status']:
-                                time.sleep(1)
-                                print(f"id : {cbd['id']}")
-                                print(f"Iconfilekey : {cbd['iconFileKey']}")
-                                url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{cbd['id']}/start"
-                                response_start = requests.post(url_start_task, headers=headers_tasks)
-                                url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{cbd['id']}/claim"
-                                response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
-                            else :
-                                pass
-                    except KeyError:
-                        continue
             start_url = "https://earn-domain.blum.codes/api/v1/tasks/3c048e58-6bb5-4cba-96cb-e564c046de58/start"
             requests.post(start_url, headers=headers_tasks)
             answer_url = "https://earn-domain.blum.codes/api/v1/tasks/3c048e58-6bb5-4cba-96cb-e564c046de58/validate"
@@ -245,6 +196,80 @@ def tap_tap():
             claim_url = f"{original_url}/claim"
 
             requests.post(claim_url, headers=headers_tasks)
+
+
+
+
+
+
+
+
+
+            original_url = 'https://earn-domain.blum.codes/api/v1/tasks/d2a972a1-12ab-4c7b-a411-da056609f2bd'
+            start_url = f"{original_url}/start"
+            requests.post(start_url, headers=headers_tasks)
+            answer_url = f"{original_url}/validate"
+            payload_answer = {
+                "keyword": "SOBLUM"
+
+            }
+            answer_response = requests.post(answer_url, headers=headers_tasks, json=payload_answer)
+
+            claim_url = f"{original_url}/claim"
+
+            requests.post(claim_url, headers=headers_tasks)
+
+
+
+
+            #respon kanggo nggoleki task
+            response_tasks = requests.get('https://earn-domain.blum.codes/api/v1/tasks', headers=headers_tasks).json()
+
+            print(f"tasks response : {response_tasks}")
+            for i in response_tasks:
+                data_task = i['tasks']
+                for a in data_task:
+                    if 'NOT_STARTED' in a['status']:
+                        print(f"id : {a['id']}")
+                        print(f"Iconfilekey : {a['iconFileKey']}")
+                        url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{a['id']}/start"
+                        response_start = requests.post(url_start_task, headers=headers_tasks)
+                        url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{a['id']}/claim"
+                        response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
+                    else:
+                        pass
+                    try :
+                        for b in a['subTasks']:
+                            if 'NOT_STARTED' in b['status']:
+                                time.sleep(1)
+                                print(f"id : {b['id']}")
+                                print(f"Iconfilekey : {b['iconFileKey']}")
+                                url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{b['id']}/start"
+                                response_start = requests.post(url_start_task, headers=headers_tasks)
+                                url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{b['id']}/claim"
+                                response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
+                            else:
+                                pass
+                    except KeyError:
+                        continue
+                data_sub_tasks = i['subSections']
+                for abc in data_sub_tasks :
+                    try :
+                        taskssub = abc['tasks']
+                        for cbd in taskssub:
+                            if 'NOT_STARTED' in cbd['status']:
+                                time.sleep(1)
+                                print(f"id : {cbd['id']}")
+                                print(f"Iconfilekey : {cbd['iconFileKey']}")
+                                url_start_task = f"https://earn-domain.blum.codes/api/v1/tasks/{cbd['id']}/start"
+                                response_start = requests.post(url_start_task, headers=headers_tasks)
+                                url_claim_tasks = f"https://earn-domain.blum.codes/api/v1/tasks/{cbd['id']}/claim"
+                                response_claim = requests.post(url_claim_tasks, headers=headers_tasks)
+                            else :
+                                pass
+                    except KeyError:
+                        continue
+
 
         # Make the request to play the game
         response_play_game = requests.post(play_game_url, headers=headers_play_game)
