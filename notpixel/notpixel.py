@@ -104,7 +104,7 @@ while True :
 
   print(f''''
   koordinat : {random_x},{random_y}
-  koordinat gambar : {random_x-x},{random_y-x}
+  koordinat gambar : {random_x-x},{random_y-y}
   warna target : {color_target}
   warna seharusnya : {hex_color}
   
@@ -124,7 +124,9 @@ while True :
 
     paint_response = requests.post(start_url, headers=headers, json=payload)
     if 'insufficient' in paint_response.text :
-      break
+      requests.get('https://notpx.app/api/v1/mining/claim', headers=headers)
+      requests.get('https://notpx.app/api/v1/mining/boost/check/reChargeSpeed', headers=headers)
+      requests.get('https://notpx.app/api/v1/mining/claim', headers=headers)
     else :
       print(f"balance : {paint_response.json()['balance']}")
       time.sleep(3)

@@ -10,14 +10,14 @@ def rgb_to_hex(rgb):
     return '#%02x%02x%02x' % tuple(rgb)
 
 # Unduh gambar (jika perlu) dan baca gambar
-url = 'https://static.notpx.app/templates/6488960520.png'
+url = 'https://static.notpx.app/templates/7200849317.png'
 response = requests.get(url, stream=True)
 img_pil = Image.open(response.raw)
 img = np.array(img_pil)
 
 # Tentukan koordinat pixel yang diinginkan
-row = 19
-col = 20
+row = 8
+col = 24
 
 try:
   # Akses pixel dengan koordinat yang ditentukan
