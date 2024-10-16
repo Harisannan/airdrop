@@ -273,7 +273,7 @@ def tap_tap():
 
         # Make the request to play the game
         response_play_game = requests.post(play_game_url, headers=headers_play_game)
-
+        print(response_play_game.text)
         # Check if the request was successful
         if response_play_game.status_code == 200:
             game_response = response_play_game.json()
