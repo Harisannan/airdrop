@@ -47,6 +47,7 @@ def select_template(headers):
     template_url = pick_random_template = response[random_pick_number]['url']
 
 
+
   select_template_url = f'https://notpx.app/api/v1/image/template/subscribe/{template_id}'
   select_template = requests.put(select_template_url, headers=headers)
 
@@ -56,9 +57,10 @@ def select_template(headers):
   response2 = requests.get(select_template_url, headers=headers).json()
   x_position = response2['x']
   y_position = response2['y']
+  image_size = response2['imageSize']
 
 
-  return template_id, template_url, x_position, y_position
+  return template_id, template_url, x_position, y_position, image_size
 
 def rgb_to_hex(rgb):
   """Converts RGB values (tuple or list of 3 integers) to a hex string."""
@@ -69,7 +71,7 @@ def rgb_to_hex(rgb):
 
 
 
-id, template_image, x, y = select_template(headers)
+id, template_image, x, y, size = select_template(headers)
 
 print(f'''
 id : {id}
@@ -80,8 +82,8 @@ y : {y}
 
 
 while True :
-  random_x = random.randint(x, x+127)
-  random_y = random.randint(y, y+127)
+  random_x = random.randint(x, x+size-1)
+  random_y = random.randint(y, y+size-1)
 
   pixel_target = int(f'{random_y}{random_x+1}')
 
@@ -126,7 +128,8 @@ while True :
     if 'insufficient' in paint_response.text :
       requests.get('https://notpx.app/api/v1/mining/claim', headers=headers)
       requests.get('https://notpx.app/api/v1/mining/boost/check/reChargeSpeed', headers=headers)
-      requests.get('https://notpx.app/api/v1/mining/claim', headers=headers)
+      requests.get('https://notpx.app/api/v1/mining/boost/check/reChargeSpeed', headers=headers)
+      break
     else :
       print(f"balance : {paint_response.json()['balance']}")
-      time.sleep(3)
+      time.sleep(1)
