@@ -39,7 +39,7 @@ def select_template(headers):
     template_id = tmplt_id
     template_url = f'https://static.notpx.app/templates/{tmplt_id}.png'
   else :
-    list_number = [12,24,36,48,60,72,84,96]
+    list_number = [12,24,36,48]
     url = f'https://notpx.app/api/v1/image/template/list?limit=12&offset={random.choice(list_number)}'
     response = requests.get(url, headers=headers).json()
     random_pick_number = random.randint(0,11)
